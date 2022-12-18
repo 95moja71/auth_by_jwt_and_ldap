@@ -6,7 +6,7 @@ namespace Apadana\Auth_armj\Ldap\Authentication;
 use Apadana\Auth_armj\Ldap\Constants\SelfServiceConstants;
 use Apadana\Auth_armj\Ldap\Service\DataService;
 use Apadana\Auth_armj\Logger\ApadanaLogger;
-use App\Models\LdapServer;
+use Apadana\Auth_armj\Models\LdapServer;
 
 class ApadanaLdap
 {

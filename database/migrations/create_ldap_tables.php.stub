@@ -1,0 +1,51 @@
+<?php
+
+
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class MigrationLdapTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+
+        //Ldap Configuration schema
+        Schema::create('ldap_servers', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement();
+            $table->string('name');
+            $table->integer('port');
+            $table->String('admin_dn');
+            $table->String('admin_pw');
+            $table->String('search_filter');
+            $table->String('search_base');
+            $table->integer('enable');
+            $table->integer('active');
+            $table->engine = 'InnoDB';
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+        Schema::drop('ldap_servers');
+    }
+
+}

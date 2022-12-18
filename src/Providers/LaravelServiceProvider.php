@@ -26,11 +26,7 @@ class LaravelServiceProvider extends AbstractServiceProvider
      */
     public function boot()
     {
-        $path = realpath(__DIR__ . '/config/');
 
-        $this->publishes([
-            $path => config_path()
-        ], 'auth_armj');
 
         $this->aliasMiddleware();
 

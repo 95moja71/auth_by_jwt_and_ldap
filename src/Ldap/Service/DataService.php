@@ -7,7 +7,7 @@ use Apadana\Auth_armj\Ldap\Authentication\ApadanaLdap;
 use Apadana\Auth_armj\Logger\ApadanaLogger;
 use Apadana\Auth_armj\Constants\UserMgtConstants;
 use App\AD\Service\SystemAttribute;
-use App\Models\LdapAttribute;
+use Apadana\Auth_armj\Models\LdapAttribute;
 use DB;
 
 /**

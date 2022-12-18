@@ -68,6 +68,7 @@ abstract class AbstractServiceProvider extends ServiceProvider
     public function register()
     {
 
+        $this->offerPublishing();
         $this->registerAliases();
 
         $this->registerJWTProvider();
@@ -89,6 +90,22 @@ abstract class AbstractServiceProvider extends ServiceProvider
             'armj.jwt.secret',
             'armj.jwt.cert',
         ]);
+    }
+
+    protected function offerPublishing()
+    {
+        if (! function_exists('config_path')) {
+            // function not available and 'publish' not relevant in Lumen
+            return;
+        }
+
+        $this->publishes([
+            __DIR__.'/../../config/' => config_path(),
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../../database/migrations/create_ldap_tables.php.stub' => $this->getMigrationFileName('create_ldap_tables.php'),
+        ], 'migrations');
     }
 
     /**
