@@ -38,6 +38,8 @@ use Apadana\Auth_armj\Providers\JWT\LdapServiceProvider;
 use Apadana\Auth_armj\Providers\JWT\Namshi;
 use Apadana\Auth_armj\Validators\PayloadValidator;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Namshi\JOSE\JWS;
 
@@ -106,6 +108,19 @@ abstract class AbstractServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../database/migrations/create_ldap_tables.php.stub' => $this->getMigrationFileName('create_ldap_tables.php'),
         ], 'migrations');
+    }
+    protected function getMigrationFileName($migrationFileName): string
+    {
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
+            ->flatMap(function ($path) use ($filesystem, $migrationFileName) {
+                return $filesystem->glob($path.'*_'.$migrationFileName);
+            })
+            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$migrationFileName}")
+            ->first();
     }
 
     /**
