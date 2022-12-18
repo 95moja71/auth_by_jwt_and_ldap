@@ -1,7 +1,6 @@
 {
     "name": "apadana/auth_armj",
     "description": "Authentication by ldap and jwt",
-    "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
